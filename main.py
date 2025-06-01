@@ -10,12 +10,19 @@ logger = logging.getLogger(__name__)
 
 async def start(_):
     await set_commands()
-    logger.debug('Бот успешно запущен!')
+    logger.debug("Бот успешно запущен!")
 
 
 async def end(_):
-    logger.debug('Бот успешно отключен!')
+    logger.debug("Бот успешно отключен!")
 
 
-if __name__ == '__main__':
-    executor.start_polling(dispatcher=dp, skip_updates=True, on_startup=start, on_shutdown=end)
+if __name__ == "__main__":
+    from src.handlers import register_handlers  # noqa
+
+    executor.start_polling(
+        dispatcher=dp,
+        skip_updates=True,
+        on_startup=start,
+        on_shutdown=end,
+    )
