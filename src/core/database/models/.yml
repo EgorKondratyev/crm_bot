@@ -1,0 +1,79 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class cargo {
+   status: cargostatustype
+   height: integer
+   width: integer
+   weight: integer
+   destination_address: varchar(500)
+   shipping_address: varchar(500)
+   transport: transporttype
+   shipping: shippingtype
+   comment_user: varchar(2000)
+   comment_manager: varchar(2000)
+   user_id: integer
+   created_at: timestamp
+   updated_at: timestamp
+   id: integer
+}
+
+class user {
+   first_name: varchar(128)
+   last_name: varchar(128)
+   surname: varchar(128)
+   email: varchar(255)
+   phone_number: varchar(15)
+   business_type: businessrelationshiptype
+   is_blocked: boolean
+   created_at: timestamp
+   updated_at: timestamp
+   id: integer
+}
+
+enum BusinessRelationshipType {
+    B2B
+    B2C
+    B2G
+    C2C
+    B2B2C
+    G2B
+    G2C
+    C2B
+    P2P
+}
+
+enum TransportType {
+    TRUCK
+    GAZELLE
+    MINIVAN
+    CAR
+}
+
+enum ShippingType {
+    CARGO
+    PASSENGER
+    EXPRESS
+    COURIER
+    DANGEROUS
+    REFRIGERATED
+    INTERNATIONAL
+    PACKAGE
+}
+
+enum CargoStatusType {
+    new
+    process
+    finish
+}
+
+cargo -[#595959,plain]-^ user : "user_id:id"
+user }- BusinessRelationshipType : "business_type"
+cargo }- TransportType : "transport"
+cargo }- ShippingType : "shipping"
+cargo }- CargoStatusType : "status"
+
+@enduml
