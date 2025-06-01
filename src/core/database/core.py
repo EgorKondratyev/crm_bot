@@ -11,16 +11,19 @@ from src.core.config import config
 
 class Database:
     def __init__(self):
-        self._db_dsn = config.dsn.unicode_string().replace("postgresql", "postgresql+asyncpg")
+        self._db_dsn = config.database.dsn.unicode_string().replace(
+            "postgresql", "postgresql+asyncpg"
+        )
         self._engine = asyncio.create_async_engine(
             self._db_dsn,
-            echo=True,
-            pool_size=config.engine_pool_size,
-            max_overflow=config.engine_max_overflow,
-            pool_timeout=config.engine_pool_timeout,
-            pool_pre_ping=config.engine_pool_ping,
+            pool_size=config.database.engine_pool_size,
+            max_overflow=config.database.engine_max_overflow,
+            pool_timeout=config.database.engine_pool_timeout,
+            pool_pre_ping=config.database.engine_pool_ping,
         )
-        self._session_local = asyncio.async_sessionmaker(bind=self._engine, expire_on_commit=False)
+        self._session_local = asyncio.async_sessionmaker(
+            bind=self._engine, expire_on_commit=False
+        )
 
     async def get_session(self) -> AsyncGenerator[asyncio.AsyncSession]:
         async with self._session_local() as session:
@@ -59,7 +62,11 @@ class CustomBase:
     def _id_str(self) -> str:
         ids: tuple = inspection.inspect(self).identity
         if ids:
-            return "-".join([str(x) for x in ids]) if self.is_composite_key(ids) else str(ids[0])
+            return (
+                "-".join([str(x) for x in ids])
+                if self.is_composite_key(ids)
+                else str(ids[0])
+            )
         return "None"
 
     def __repr__(self):

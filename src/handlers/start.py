@@ -3,10 +3,12 @@ import time
 from aiogram.types import Message
 
 from src.core.bot.bot import dp
+from src.dao.user import UserDAO
 
 
 async def start_handler(message: Message):
     await message.answer(determine_time_of_day())
+    user = await UserDAO.get_by_telegram_id(telegram_id=message.from_user.id)
 
 
 def determine_time_of_day():
