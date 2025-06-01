@@ -20,6 +20,10 @@ class BusinessRelationshipType(enum.Enum):  # StrEnum python3.11>
 
 
 class User(Base, mixins.PrimaryKeyMixin, mixins.TimestampMixin):
+    telegram_id: orm.Mapped[int] = orm.mapped_column(
+        sqlalchemy.BigInteger,
+        nullable=False,
+    )
     first_name: orm.Mapped[str] = orm.mapped_column(
         sqlalchemy.String(128),
         nullable=True,
