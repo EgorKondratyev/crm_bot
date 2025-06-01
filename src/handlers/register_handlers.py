@@ -1,5 +1,9 @@
 from src.handlers.start import register_start_command_handlers
+from src.handlers.register_user import register_register_handlers
+from src.handlers.stop_fsm import register_stop_fsm_handler
 from src.handlers.unknown import register_unknown_command_handlers
 
+register_stop_fsm_handler()
 register_start_command_handlers()
+register_register_handlers()
 register_unknown_command_handlers()

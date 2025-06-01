@@ -4,11 +4,29 @@ from aiogram.types import Message
 
 from src.core.bot.bot import dp
 from src.dao.user import UserDAO
+from src.keyboards.markup import phone_request_kb
+from src.states.register import RegisterFSM
 
 
 async def start_handler(message: Message):
     await message.answer(determine_time_of_day())
     user = await UserDAO.get_by_telegram_id(telegram_id=message.from_user.id)
+    if user:
+        pass
+    else:
+        await RegisterFSM.get_phone.set()
+        await message.answer(
+            "Приветствуем! 🌤️\n\n"
+            "Рады видеть вас в компании <b>«Метеор»!</b> "
+            "Чтобы продолжить работу и обеспечить вам максимально удобное обслуживание, пожалуйста, "
+            "<b>укажите ваш номер телефона</b> по кнопке ниже 👇",
+            parse_mode="html",
+            reply_markup=phone_request_kb,
+        )
+        await message.answer(
+            "Обращаем Ваше внимание, что при регистрации на нашем сервисе Вы автоматически соглашаетесь "
+            "на обработку персональных данных"
+        )
 
 
 def determine_time_of_day():

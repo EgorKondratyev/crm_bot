@@ -20,3 +20,10 @@ class BaseDAO:
             query = select(cls.model).where(cls.model.id == model_id)
             result = await session.execute(query)
             return result.scalar_one_or_none()
+
+    @classmethod
+    async def add(cls, **data) -> None:
+        async for session in db.get_session():
+            new_record = cls.model(**data)
+            session.add(new_record)
+            await session.commit()

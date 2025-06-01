@@ -5,7 +5,8 @@ from src.core.bot.bot import dp
 
 async def unknown_command_handler(message: Message):
     await message.answer(
-        "Приносим наши извинения, система не смогла распознать Ваш запрос, повторите его или обратитесь в тех. поддержку",
+        "Приносим наши извинения, система не смогла распознать Ваш запрос, "
+        "повторите его или обратитесь в тех. поддержку /help",
         parse_mode="html",
     )
 

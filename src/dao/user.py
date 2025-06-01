@@ -2,6 +2,7 @@ from sqlalchemy import select
 
 from src.core.bot.bot import db
 from src.core.database.models import User
+from src.core.database.models.user import BusinessRelationshipType
 from src.dao.base import BaseDAO
 
 
