@@ -3,4 +3,4 @@ from src.dao.base import BaseDAO
 
 
 class CargoDAO(BaseDAO):
-    model = Cargo
+    model: Cargo = Cargo
