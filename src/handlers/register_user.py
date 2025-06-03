@@ -5,7 +5,10 @@ from src.core.bot.bot import dp
 from src.core.database.models.user import BusinessRelationshipType
 from src.dao.user import UserDAO
 from src.keyboards.inline.stop import create_keyboard_stop_fsm
-from src.keyboards.markup import get_business_relationship_keyboard
+from src.keyboards.markup import (
+    get_business_relationship_keyboard,
+    get_main_buttons_for_client,
+)
 from src.states.register import RegisterFSM
 
 
@@ -54,7 +57,8 @@ async def company_type_handler(message: types.Message, state: FSMContext):
     await message.answer("🎊")
     await message.answer(
         "Благодарим за успешную регистрацию в нашем сервисе\n\n"
-        "Для создания заявки на перевозку, выберите соответсвующий раздел в панели кнопок клиента"
+        "Для создания заявки на перевозку, выберите соответсвующий раздел в панели кнопок клиента",
+        reply_markup=get_main_buttons_for_client(),
     )
 
 

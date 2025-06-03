@@ -16,3 +16,15 @@ def get_business_relationship_keyboard():
         keyboard.row(*[KeyboardButton(rel.value) for rel in row_buttons])
 
     return keyboard
+
+
+def get_main_buttons_for_client():
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    add_cargo_button = KeyboardButton("✅ Оформить доставку")
+    help_button = KeyboardButton("📞 Поддержка")
+    personal_area_button = KeyboardButton("🔒 Личный кабинет")
+    my_cargo_button = KeyboardButton("🚛 Мои заказы")
+    keyboard.add(add_cargo_button).add(help_button).insert(personal_area_button).insert(
+        my_cargo_button
+    )
+    return keyboard

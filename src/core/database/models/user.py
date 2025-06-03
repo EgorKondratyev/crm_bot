@@ -1,13 +1,12 @@
-import enum
-
 import sqlalchemy
 from sqlalchemy import orm
 
 from src.core.database import mixins
+from src.core.database.base_enum import BaseEnum
 from src.core.database.core import Base
 
 
-class BusinessRelationshipType(enum.Enum):  # StrEnum python3.11>
+class BusinessRelationshipType(BaseEnum):
     B2B = "B2B"
     B2C = "B2C"
     B2G = "B2G"

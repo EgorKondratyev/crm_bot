@@ -1,20 +1,19 @@
-import enum
-
 import sqlalchemy
 from sqlalchemy import orm
 
 from src.core.database import mixins
+from src.core.database.base_enum import BaseEnum
 from src.core.database.core import Base
 
 
-class TransportType(enum.Enum):
+class TransportType(BaseEnum):
     TRUCK = "Фура"
     GAZELLE = "Газель"
     MINIVAN = "Микроавтобус"
     CAR = "Легковая машина"
 
 
-class ShippingType(enum.Enum):
+class ShippingType(BaseEnum):
     CARGO = "Грузовая"
     PASSENGER = "Пассажирская"
     EXPRESS = "Срочная"
@@ -25,7 +24,7 @@ class ShippingType(enum.Enum):
     PACKAGE = "Посылочная"
 
 
-class CargoStatusType(enum.Enum):
+class CargoStatusType(BaseEnum):
     new = "Новая"
     process = "В обработке"
     finish = "Завершена"
