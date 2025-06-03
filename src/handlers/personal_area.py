@@ -13,7 +13,7 @@ async def get_personal_area_handler(message: Message):
             "Вы не зарегистрированы в системе для просмотра личного кабинета!"
         )
         return
-    print(user.cargos)
+    
     await message.answer(
         f"<b>Добро пожаловать в личный кабинет</b> 🛠\n\n"
         f"<b>Ваш ID в телеграм:</b> {user.telegram_id}\n\n"
