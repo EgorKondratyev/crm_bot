@@ -10,6 +10,7 @@ from src.keyboards.inline.order import (
     get_shipping_type_buttons,
     get_transport_type_buttons,
 )
+from src.keyboards.markup import get_main_buttons_for_client
 from src.states.order import PlacingOrderFSM
 
 
@@ -44,6 +45,7 @@ async def placing_order_input_weight_handler(
     transport_type = callback.data.split(":")[1]
     async with state.proxy() as data:
         data["transport_type"] = transport_type
+        shipping_type = data["shipping_type"]
     await callback.answer("Тип транспорта успешно выбран")
     await callback.message.answer(
         f"Выбранный тип транспорта: <b>{TransportType.get_by_key(key=transport_type)}</b>",
@@ -51,7 +53,10 @@ async def placing_order_input_weight_handler(
     )
 
     await PlacingOrderFSM.get_weight.set()
-    await callback.message.answer("Напишите вес груза в кг:")
+    if shipping_type == "PASSENGER":
+        await callback.message.answer("Напишите количество людей:")
+    else:
+        await callback.message.answer("Напишите вес груза в кг:")
 
 
 async def placing_order_input_width_handler(message: Message, state: FSMContext):
@@ -171,7 +176,8 @@ async def placing_order_finished_handler(message: Message, state: FSMContext):
         "Ожидайте, скоро с Вами свяжется наш специалист для уточнения дополнительных деталей заказа."
     )
     await message.answer(
-        "«Отслеживайте доставку в реальном времени в разделе «Мои заказы»."
+        "«Отслеживайте доставку в реальном времени в разделе «Мои заказы».",
+        reply_markup=get_main_buttons_for_client(),
     )
 
 
