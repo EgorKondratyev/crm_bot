@@ -2,12 +2,11 @@ from sqlalchemy import select
 
 from src.core.bot.bot import db
 from src.core.database.models import User
-from src.core.database.models.user import BusinessRelationshipType
 from src.dao.base import BaseDAO
 
 
 class UserDAO(BaseDAO):
-    model = User
+    model: User = User
 
     @classmethod
     async def get_by_telegram_id(cls, telegram_id: int) -> model:
